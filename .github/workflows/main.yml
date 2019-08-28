@@ -15,19 +15,22 @@ jobs:
     
     - name: Create dependency graph
       run: |
-        sudo apt install graphviz
+        sudo apt-get install graphviz
         ./gradlew graphDeps
     
+    - uses: actions/upload-artifact@master
+      with:
+        name: dependency-graph
+        path: ./jipp-core/build/reports/classycle/report.png
+
     - name: Test
       run: ./gradlew check
     
     - name: Upload coverage
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       run: bash <(curl -s https://codecov.io/bash)
     
     - name: Build
       run: ./gradlew build
 
-    - uses: actions/upload-artifact@master
-      with:
-        name: dependency-graph
-        path: ./jipp-core/build/reports/classycle/report.png
