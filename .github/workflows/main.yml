@@ -11,5 +11,11 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Test
-      run: ./gradlew dependencies check
+    - name: Build & Test
+      run: ./gradlew build check
+    - name: Upload coverage
+      run: bash <(curl -s https://codecov.io/bash)
+    - name: Create dependency graph
+      run: 
+      | sudo apt install graphviz
+      | ./gradlew graphDeps
