@@ -16,6 +16,6 @@ jobs:
     - name: Upload coverage
       run: bash <(curl -s https://codecov.io/bash)
     - name: Create dependency graph
-      run: 
-      | sudo apt install graphviz
-      | ./gradlew graphDeps
+      run: |
+        sudo apt install graphviz
+        ./gradlew graphDeps
